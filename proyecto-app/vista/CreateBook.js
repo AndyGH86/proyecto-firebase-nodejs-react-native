@@ -13,6 +13,23 @@ const CreateBook = () => {
         setNewBook({ ...newBook, [name]: value})
     }
 
+    const SaveNewBook = async () => {
+        try {
+            const response = await fetch('API_ENDPOINT/books', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ title: newBookTitle }),
+            });
+            const data = await response.json();
+            newBook([...books, data]);
+            setNewBook('');
+          } catch (error) {
+            console.error('Error adding book:', error);
+          }
+            }
+
     return(
         <ScrollView style={styles.container}>
         <View style={styles.inputGroup}>
@@ -36,7 +53,7 @@ const CreateBook = () => {
             onChangeText={(value) =>  handleChangeText('year', value)}/>
         </View>
         <View>
-            <Button title="Save Book" onPress={() => console.log(newBook)} />
+            <Button title="Save Book" onPress={() => SaveNewBook()} />
         </View>
         </ScrollView>
 
