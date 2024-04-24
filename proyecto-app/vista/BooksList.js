@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Text, View } from "react-native";
 
 const BooksList = () => {
     return(
@@ -11,3 +11,5 @@ const BooksList = () => {
 
 
 }
+
+export default BooksList
