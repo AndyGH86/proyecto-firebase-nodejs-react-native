@@ -9,8 +9,8 @@ app.use(morgan('dev'))
 
 app.get ('/', async (req,res) => {
 
-   const querySnapshot = await db.collection('books').get()
-   console.log(querySnapshot.doc[0].data())
+   
+   
 
     res.send('Hello')
 })
