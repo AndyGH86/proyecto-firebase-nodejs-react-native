@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Text, View, TextInput, ScrollView, StyleSheet, Button } from "react-native";
 
-const CreateBook = () => {
+
+
+const CreateBook = (props) => {
     const [newBook, setNewBook] = useState({
         name: '',
         author: '',
@@ -27,7 +29,8 @@ const CreateBook = () => {
             setNewBook('');
           } catch (error) {
             console.error('Error adding book:', error);
-          }
+            }
+          props.navigation.navigate('BooksList');
             }
 
     return(
