@@ -6,6 +6,12 @@ const UpdateBook = (props) => {
     const handleChangeText = (name, value) => {
         setNewBook({ ...newBook, [name]: value})
     }
+    const saveChangeBook = () => {
+
+    }
+    const deleteBook = () => {
+        
+    }
 
     return(
         <ScrollView style={styles.container}>

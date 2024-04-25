@@ -13,9 +13,9 @@ const Stack = createNativeStackNavigator();
 function MyStack() {
   return(
   <Stack.Navigator>
-    <Stack.Screen name='BooksList' component={BooksList} />
-    <Stack.Screen name='CreateBook' component={CreateBook} />
-    <Stack.Screen name='UpdateBook' component={UpdateBook} />
+    <Stack.Screen name='BooksList' component={BooksList} options={{ title:"Your Books"}}/>
+    <Stack.Screen name='CreateBook' component={CreateBook} options={{ title:"Create Your Book"}}/>
+    <Stack.Screen name='UpdateBook' component={UpdateBook} options={{ title:"Edit Your Book"}}/>
   </Stack.Navigator>
 
   )
