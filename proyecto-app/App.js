@@ -6,18 +6,25 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BooksList from './vista/BooksList';
 import UpdateBook from './vista/UpdateBook';
 import CreateBook from './vista/CreateBook';
+import { useState } from 'react';
 
 const Stack = createNativeStackNavigator();
 
 
 function MyStack() {
+  const [reload, setReload] = useState()
   return(
-  <Stack.Navigator>
-    <Stack.Screen name='BooksList' component={BooksList} options={{ title:"Your Books"}}/>
-    <Stack.Screen name='CreateBook' component={CreateBook} options={{ title:"Create Your Book"}}/>
-    <Stack.Screen name='UpdateBook' component={UpdateBook} options={{ title:"Edit Your Book"}}/>
+    <Stack.Navigator>
+    <Stack.Screen name='BooksList' options={{ title:"Your Books"}}>
+      {(props) => <BooksList  {...props} reload={reload} setReload={setReload}/>}
+    </Stack.Screen>
+    <Stack.Screen name='CreateBook' options={{ title:"Create Your Book"}}>
+      {(props) => <CreateBook  {...props} reload={reload} setReload={setReload}/>}
+    </Stack.Screen>
+    <Stack.Screen name='UpdateBook' options={{ title:"Edit Your Book"}}>
+      {(props) => <UpdateBook  {...props} reload={reload} setReload={setReload}/>}
+    </Stack.Screen>
   </Stack.Navigator>
-
   )
 }
 

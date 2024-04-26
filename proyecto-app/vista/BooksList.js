@@ -8,9 +8,10 @@ const BooksList = (props) => {
 
     const fetchBooks = async () => {
         try {
-            const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://and-test.onrender.com/books')}`);
+            setLoading(true)
+            const response = await fetch(`http://127.0.0.1:3000/books`);
             const data = await response.json();
-            setBooks(JSON.parse(data.contents).books);
+            setBooks(data.books);
             setLoading(false);
         } catch (error) {
             console.error("Error fetching books:", error);
@@ -20,7 +21,7 @@ const BooksList = (props) => {
 
     useEffect(() => {
         fetchBooks();
-    }, []);
+    }, [props.reload]);
 
     const renderItem = ({ item }) => (
         <ListItem bottomDivider onPress={() => props.navigation.navigate('UpdateBook')}>

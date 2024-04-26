@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, Alert } from "react-native";
 
-const CreateBook = ({ navigation, route }) => {
+const CreateBook = ({ navigation, route, setReload }) => {
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [genre, setGenre] = useState("");
@@ -16,7 +16,7 @@ const CreateBook = ({ navigation, route }) => {
         setLoading(true);
 
         try {
-            const response = await fetch(`https://api.allorigins.win/post?url=${encodeURIComponent('https://and-test.onrender.com/books')}`, {
+            const response = await fetch(`http://127.0.0.1:3000/books`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -35,6 +35,7 @@ const CreateBook = ({ navigation, route }) => {
             console.error("Error creating book:", error);
             Alert.alert("Error", "Failed to create book. Please try again.");
         } finally {
+            setReload(new Date());
             setLoading(false);
         }
     };
