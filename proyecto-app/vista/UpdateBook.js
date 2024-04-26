@@ -1,67 +1,24 @@
-import React from "react";
-import { Text, View, ScrollView, TextInput, Button, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, TextInput, Button, Alert } from "react-native";
 
 const UpdateBook = (props) => {
+    console.log(props.route.params.id)
 
-    const handleChangeText = (name, value) => {
-        setNewBook({ ...newBook, [name]: value})
-    }
-    const saveChangeBook = () => {
-
-    }
-    const deleteBook = () => {
+    return (
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+            <TextInput
+                style={{ height: 40, width: 300, borderColor: "gray", borderWidth: 1, marginBottom: 10 }}
+                placeholder="Title"
+                
+               
+            />
+         </View>    
+           
         
-    }
-
-    return(
-        <ScrollView style={styles.container}>
-        <View style={styles.inputGroup}>
-            <TextInput 
-            placeholder="Book Name"  
-            onChangeText={(value) =>  handleChangeText('name', value)}/>
-        </View>
-        <View style={styles.inputGroup}>
-            <TextInput 
-            placeholder="Author"
-            onChangeText={(value) =>  handleChangeText('author', value)} />
-        </View>
-        <View style={styles.inputGroup}>
-            <TextInput 
-            placeholder="Category" 
-            onChangeText={(value) =>  handleChangeText('category', value)}/>
-        </View>
-        <View style={styles.inputGroup}>
-            <TextInput 
-            placeholder="Year" 
-            onChangeText={(value) =>  handleChangeText('year', value)}/>
-        </View>
-        <View>
-            <Button color="#19AC52" title="Save Book" onPress={() => alert('works')} />
-        </View>
-        <View>
-            <Button color="#E37399" title="Delete Book" onPress={() => alert('works')} />
-        </View>
-        </ScrollView>
-
 
     )
+        
+    
+};
 
-
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 35
-    },
-    inputGroup: {
-      flex: 1,
-      padding: 0,
-      marginBottom: 15,
-      borderBottomWidth: 1,
-      borderBottomColor: '#cccccc'
-    },
-  });
-  
-
-export default UpdateBook
+export default UpdateBook;

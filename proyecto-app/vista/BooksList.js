@@ -24,11 +24,12 @@ const BooksList = (props) => {
     }, [props.reload]);
 
     const renderItem = ({ item }) => (
-        <ListItem bottomDivider onPress={() => props.navigation.navigate('UpdateBook')}>
+        <ListItem bottomDivider onPress={() => props.navigation.navigate('UpdateBook', {id: item.id})}>
             <ListItem.Chevron />
             <ListItem.Content>
-                <ListItem.Title>{item.title}</ListItem.Title>
-                <ListItem.Subtitle>{item.author}</ListItem.Subtitle>
+                <ListItem.Title>Title: {item.title}</ListItem.Title>
+                <ListItem.Title>Author: {item.author}</ListItem.Title>
+                <ListItem.Subtitle>Genre: {item.genre}</ListItem.Subtitle>
             </ListItem.Content>
         </ListItem>
     );
