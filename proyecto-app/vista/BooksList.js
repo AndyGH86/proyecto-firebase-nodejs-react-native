@@ -1,67 +1,55 @@
 import React, { useEffect, useState } from "react";
-import { Text, ScrollView, Button } from "react-native";
-import { ListItem, Avatar } from "react-native-elements";
-
-
+import { View, Text, Button, ActivityIndicator, FlatList } from "react-native";
+import { ListItem } from "react-native-elements";
 
 const BooksList = (props) => {
     const [books, setBooks] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    const fetchBooks = () => {
-    fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://and-test.onrender.com/books')}`)
-      .then(response => {
-          return response.json()
-      })
-      .then(data => setBooks(JSON.parse(data.contents).books));
+    const fetchBooks = async () => {
+        try {
+            const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://and-test.onrender.com/books')}`);
+            const data = await response.json();
+            setBooks(JSON.parse(data.contents).books);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error fetching books:", error);
+            setLoading(false);
+        }
     }
 
     useEffect(() => {
         fetchBooks();
-    },[])
+    }, []);
 
-
-    return(<>
-        <ListItem bottomDivider onPress={() => {
-            props.navigation.navigate('UpdateBook')
-        }}>
+    const renderItem = ({ item }) => (
+        <ListItem bottomDivider onPress={() => props.navigation.navigate('UpdateBook')}>
             <ListItem.Chevron />
             <ListItem.Content>
-                <ListItem.Title>Harry Potter</ListItem.Title>
-                <ListItem.Subtitle>J.R Rowling</ListItem.Subtitle>
-
+                <ListItem.Title>{item.title}</ListItem.Title>
+                <ListItem.Subtitle>{item.author}</ListItem.Subtitle>
             </ListItem.Content>
-            </ListItem>
-            <ListItem bottomDivider onPress={() => {
-            props.navigation.navigate('UpdateBook')
-        }}>
-            <ListItem.Chevron />
-            <ListItem.Content>
-                <ListItem.Title>Harry Potter</ListItem.Title>
-                <ListItem.Subtitle>J.R Rowling</ListItem.Subtitle>
-            </ListItem.Content>
-            </ListItem>
-            <ListItem bottomDivider onPress={() => {
-            props.navigation.navigate('UpdateBook')
-        }}>
-            <ListItem.Chevron />
-            <ListItem.Content>
-                <ListItem.Title>Harry Potter</ListItem.Title>
-                <ListItem.Subtitle>J.R Rowling</ListItem.Subtitle>
-            </ListItem.Content>
-            </ListItem>
+        </ListItem>
+    );
 
+    if (loading) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <ActivityIndicator size="large" color="#0000ff" />
+            </View>
+        );
+    }
 
-
-
-
-
-        <ScrollView>
-            <Button title= "Create Book"  onPress={() => props.navigation.navigate('CreateBook')}/>
-        </ScrollView>
-
-        </> )
-
-
+    return (
+        <>
+            <FlatList
+                data={books}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id.toString()}
+            />
+            <Button title="Create Book" onPress={() => props.navigation.navigate('CreateBook')} />
+        </>
+    );
 }
 
-export default BooksList
+export default BooksList;

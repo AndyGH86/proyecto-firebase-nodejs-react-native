@@ -9,7 +9,8 @@ app.use(morgan('dev'))
 
 app.get ('/', async (req,res) => {
 
-   
+   const result = await db.collection('books').get()
+   console.log(result.docs);
    
 
     res.send('Hello')

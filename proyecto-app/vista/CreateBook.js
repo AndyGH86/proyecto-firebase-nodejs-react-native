@@ -1,83 +1,67 @@
 import React, { useState } from "react";
-import { Text, View, TextInput, ScrollView, StyleSheet, Button } from "react-native";
+import { View, Text, TextInput, Button, Alert } from "react-native";
 
+const CreateBook = ({ navigation, route }) => {
+    const [title, setTitle] = useState("");
+    const [author, setAuthor] = useState("");
+    const [genre, setGenre] = useState("");
+    const [loading, setLoading] = useState(false);
 
+    const handleCreateBook = async () => {
+        if (!title || !author) {
+            Alert.alert("Error", "Please enter title and author.");
+            return;
+        }
 
-const CreateBook = (props) => {
-    const [newBook, setNewBook] = useState({
-        name: '',
-        author: '',
-        category: '',
-        year: '',
-    })
+        setLoading(true);
 
-    const handleChangeText = (name, value) => {
-        setNewBook({ ...newBook, [name]: value})
-    }
-
-    const SaveNewBook = async () => {
         try {
-            const response = await fetch('API_ENDPOINT/books', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ title: newBookTitle }),
+            const response = await fetch(`https://api.allorigins.win/post?url=${encodeURIComponent('https://and-test.onrender.com/books')}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ title, author, genre }),
             });
-            const data = await response.json();
-            newBook([...books, data]);
-            setNewBook('');
-          } catch (error) {
-            console.error('Error adding book:', error);
-            }
-          props.navigation.navigate('BooksList');
+
+            if (!response.ok) {
+                throw new Error("Failed to create book.");
             }
 
-    return(
-        <ScrollView style={styles.container}>
-        <View style={styles.inputGroup}>
-            <TextInput 
-            placeholder="Book Name"  
-            onChangeText={(value) =>  handleChangeText('name', value)}/>
-        </View>
-        <View style={styles.inputGroup}>
-            <TextInput 
-            placeholder="Author"
-            onChangeText={(value) =>  handleChangeText('author', value)} />
-        </View>
-        <View style={styles.inputGroup}>
-            <TextInput 
-            placeholder="Category" 
-            onChangeText={(value) =>  handleChangeText('category', value)}/>
-        </View>
-        <View style={styles.inputGroup}>
-            <TextInput 
-            placeholder="Year" 
-            onChangeText={(value) =>  handleChangeText('year', value)}/>
-        </View>
-        <View>
-            <Button title="Save Book" onPress={() => SaveNewBook()} />
-        </View>
-        </ScrollView>
+            Alert.alert("Success", "Book created successfully.");
+            navigation.goBack(); // Go back to previous screen
+            route.params.refresh(); // Refresh the book list
+        } catch (error) {
+            console.error("Error creating book:", error);
+            Alert.alert("Error", "Failed to create book. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    };
 
-    )
+    return (
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+            <TextInput
+                style={{ height: 40, width: 300, borderColor: "gray", borderWidth: 1, marginBottom: 10 }}
+                placeholder="Title"
+                value={title}
+                onChangeText={setTitle}
+            />
+            <TextInput
+                style={{ height: 40, width: 300, borderColor: "gray", borderWidth: 1, marginBottom: 10 }}
+                placeholder="Author"
+                value={author}
+                onChangeText={setAuthor}
+            />
+            <TextInput
+                style={{ height: 40, width: 300, borderColor: "gray", borderWidth: 1, marginBottom: 10 }}
+                placeholder="Genre"
+                value={genre}
+                onChangeText={setGenre}
+            />
+            <Button title="Create Book" onPress={handleCreateBook} disabled={loading} />
+        </View>
+    );
+};
 
-
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 35
-    },
-    inputGroup: {
-      flex: 1,
-      padding: 0,
-      marginBottom: 15,
-      borderBottomWidth: 1,
-      borderBottomColor: '#cccccc'
-    },
-  });
-  
-
-export default CreateBook
+export default CreateBook;
