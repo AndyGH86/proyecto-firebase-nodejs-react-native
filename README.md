@@ -1,4 +1,4 @@
-# Instrucciones para ejecutar el proyecto en local
+# Instrucciones para ejecutar el backend en local
 
 Para poder ejecutar este proyecto en tu entorno local, sigue los siguientes pasos:
 
