@@ -1,43 +1,90 @@
-import React, { useState } from "react";
-import { View, Text, Button, TextInput } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, TextInput, Button, Alert } from "react-native";
 
-const UpdateBook = ({ book, onUpdate, onDelete }) => {
-  const [title, setTitle] = useState(book.title);
-  const [author, setAuthor] = useState(book.author);
-  const [genre, setGenre] = useState(book.genre);
+const UpdateBook = (props) => {
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [genre, setGenre] = useState('');
 
-  const handleUpdate = () => {
-    onUpdate(book.id, { title, author, genre });
+  useEffect(() => {
+    const { title, author, genre } = props.editableBook;
+    console.log(props.editableBook.id);
+    setTitle(title);
+    setAuthor(author);
+    setGenre(genre);
+  }, [])
+  const handleUpdate = async () => {
+    try {
+      const response = await fetch(`http://127.0.0.1:3000/books/${props.editableBook.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title, author, genre })
+      });
+      if (response.ok) {
+        props.navigation.navigate('BooksList', { reload: true });
+      } else {
+        console.error("Failed to update book");
+        Alert.alert("Error", "Failed to update book");
+      }
+    } catch (error) {
+      console.error("Error updating book:", error);
+      Alert.alert("Error", "Failed to update book");
+    }
   };
 
-  const handleDelete = () => {
-    onDelete(book.id);
+  const handleDelete = async () => {
+
+    try {
+      const response = await fetch(`http://127.0.0.1:3000/books/${props.editableBook.id}`, {
+        method: 'DELETE'
+      });
+      if (response.ok) {
+        props.navigation.navigate('BooksList', { reload: true });
+      } else {
+        console.error("Failed to delete book");
+        Alert.alert("Error", "Failed to delete book");
+      }
+    } catch (error) {
+      console.error("Error deleting book:", error);
+      Alert.alert("Error", "Failed to delete book");
+    }
   };
 
   return (
-    <View style={{ margin: 20 }}>
-      <Text>Title:</Text>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <TextInput
-        style={{ height: 40, borderColor: 'transparent', borderWidth: 1, marginBottom: 10, outline: 'none' }}
-        onChangeText={setTitle}
+        style={{ height: 40, width: 300, borderColor: "gray", borderWidth: 1, marginBottom: 10 }}
+        placeholder="Title"
         value={title}
+        onChangeText={setTitle}
       />
-      <Text>Author:</Text>
       <TextInput
-        style={{ height: 40, borderColor: 'transparent', borderWidth: 1, marginBottom: 10, outline: 'none' }}
-        onChangeText={setAuthor}
+        style={{ height: 40, width: 300, borderColor: "gray", borderWidth: 1, marginBottom: 10 }}
+        placeholder="Author"
         value={author}
+        onChangeText={setAuthor}
       />
-      <Text>Genre:</Text>
       <TextInput
-        style={{ height: 40, borderColor: 'transparent', borderWidth: 1, marginBottom: 10, outline: 'none' }}
-        onChangeText={setGenre}
+        style={{ height: 40, width: 300, borderColor: "gray", borderWidth: 1, marginBottom: 10 }}
+        placeholder="Genre"
         value={genre}
+        onChangeText={setGenre}
       />
-      <Button  title="Update" color='#228b22' onPress={handleUpdate} />
-      <Button style={{ padding: 5, }}title="Delete" color='#ff0000' onPress={handleDelete} />
+      <View>
+        <Button title="Update" onPress={handleUpdate} />
+      </View>
+      <View>
+        <Button title="Delete" onPress={handleDelete} />
+      </View>
     </View>
-  );
+
+
+
+  )
+
+
 };
 
 export default UpdateBook;

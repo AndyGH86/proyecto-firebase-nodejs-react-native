@@ -12,17 +12,18 @@ const Stack = createNativeStackNavigator();
 
 
 function MyStack() {
-  const [reload, setReload] = useState()
+  const [reload, setReload] = useState();
+  const [editableBook, setEditableBook] = useState();
   return(
     <Stack.Navigator>
     <Stack.Screen name='BooksList' options={{ title:"Your Books"}}>
-      {(props) => <BooksList  {...props} reload={reload} setReload={setReload}/>}
+      {(props) => <BooksList  {...props} reload={reload} setReload={setReload} setEditableBook={setEditableBook}/>}
     </Stack.Screen>
     <Stack.Screen name='CreateBook' options={{ title:"Create Your Book"}}>
       {(props) => <CreateBook  {...props} reload={reload} setReload={setReload}/>}
     </Stack.Screen>
     <Stack.Screen name='UpdateBook' options={{ title:"Edit Your Book"}}>
-      {(props) => <UpdateBook  {...props} reload={reload} setReload={setReload}/>}
+      {(props) => <UpdateBook  {...props} reload={reload} setReload={setReload} editableBook={editableBook} setEditableBook={setEditableBook}/>}
     </Stack.Screen>
   </Stack.Navigator>
   )
