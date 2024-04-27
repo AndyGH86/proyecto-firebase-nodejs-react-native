@@ -15,8 +15,8 @@ function MyStack() {
   const [reload, setReload] = useState();
   const [editableBook, setEditableBook] = useState();
   return(
-    <Stack.Navigator>
-    <Stack.Screen name='BooksList' options={{ title:"Your Books"}}>
+    <Stack.Navigator style={styles.container}>
+    <Stack.Screen  name='BooksList' options={{ title:"Your Books"}}>
       {(props) => <BooksList  {...props} reload={reload} setReload={setReload} setEditableBook={setEditableBook}/>}
     </Stack.Screen>
     <Stack.Screen name='CreateBook' options={{ title:"Create Your Book"}}>
@@ -31,9 +31,9 @@ function MyStack() {
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer  >
 
-      <MyStack />
+      <MyStack style={styles.container }/>
 
     </NavigationContainer>
   );
@@ -42,7 +42,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#87cefa',
     alignItems: 'center',
     justifyContent: 'center',
   },

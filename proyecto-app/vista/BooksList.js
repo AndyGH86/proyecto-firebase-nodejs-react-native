@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {ActivityIndicator, Button, FlatList, View} from "react-native";
+import {ActivityIndicator, Button, FlatList, View, StyleSheet} from "react-native";
 import {ListItem} from "react-native-elements";
 
 const BooksList = (props) => {
@@ -30,7 +30,7 @@ const BooksList = (props) => {
     };
 
     const renderItem = ({ item }) => (
-        <ListItem bottomDivider onPress={() => editBook(item)}>
+        <ListItem style={styles.container} bottomDivider onPress={() => editBook(item)}>
             <ListItem.Chevron />
             <ListItem.Content>
                 <ListItem.Title>Title: {item.title}</ListItem.Title>
@@ -55,9 +55,16 @@ const BooksList = (props) => {
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id.toString()}
             />
-            <Button title="Create Book" onPress={() => props.navigation.navigate('CreateBook')} />
+            <Button color="#841584" title="Create Book" onPress={() => props.navigation.navigate('CreateBook')} />
         </>
     );
 }
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: "#87cefa",
+      justifyContent: 'center',
+    },
+  });
 
 export default BooksList;

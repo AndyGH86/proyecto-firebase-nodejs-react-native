@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, Button, Alert } from "react-native";
+import { View, Text, TextInput, Button, Alert, StyleSheet } from "react-native";
 
 const UpdateBook = (props) => {
   const [title, setTitle] = useState('');
@@ -60,33 +60,34 @@ const UpdateBook = (props) => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={styles.container }>
+      Title:
       <TextInput
-        style={{ height: 40, width: 300, borderColor: "gray", borderWidth: 1, marginBottom: 10 }}
+        style={styles.input}             
         placeholder="Title"
         value={title}
         onChangeText={setTitle}
       />
+      Author:
       <TextInput
-        style={{ height: 40, width: 300, borderColor: "gray", borderWidth: 1, marginBottom: 10 }}
+        style={styles.input}        
         placeholder="Author"
         value={author}
         onChangeText={setAuthor}
       />
+      Genre:
       <TextInput
-        style={{ height: 40, width: 300, borderColor: "gray", borderWidth: 1, marginBottom: 10 }}
+        style={styles.input}
         placeholder="Genre"
         value={genre}
         onChangeText={setGenre}
       />
-      <View>
-        <Button title="Update" onPress={handleUpdate} disabled={loading}/>
-      </View>
-      <View>
-        <Button title="Delete" onPress={handleDelete} />
+      <View style={styles.button}>
+        <Button color="#006400" title="Update" onPress={handleUpdate} disabled={loading}/>
+     
+        <Button color="#ff0000" title="Delete" onPress={handleDelete} />
       </View>
     </View>
-
 
 
   )
@@ -94,4 +95,27 @@ const UpdateBook = (props) => {
 
 };
 
+const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+    fontSize: 20,
+    margin: 5,
+    
+    
+    
+  },
+  button: {
+    flexDirection:"row",
+    justifyContent:"space-evenly",
+    margin: 20,
+  },
+ 
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    fontSize: 18,
+  },
+});
 export default UpdateBook;
