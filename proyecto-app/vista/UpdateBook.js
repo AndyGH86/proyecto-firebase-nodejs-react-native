@@ -5,6 +5,7 @@ const UpdateBook = (props) => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [genre, setGenre] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const { title, author, genre } = props.editableBook;
@@ -23,7 +24,8 @@ const UpdateBook = (props) => {
         body: JSON.stringify({ title, author, genre })
       });
       if (response.ok) {
-        props.navigation.navigate('BooksList', { reload: true });
+        props.setReload(new Date());
+        props.navigation.navigate('BooksList');
       } else {
         console.error("Failed to update book");
         Alert.alert("Error", "Failed to update book");
@@ -32,6 +34,10 @@ const UpdateBook = (props) => {
       console.error("Error updating book:", error);
       Alert.alert("Error", "Failed to update book");
     }
+   finally {
+    
+    setLoading(false);
+}
   };
 
   const handleDelete = async () => {
@@ -41,7 +47,8 @@ const UpdateBook = (props) => {
         method: 'DELETE'
       });
       if (response.ok) {
-        props.navigation.navigate('BooksList', { reload: true });
+        props.setReload(new Date());
+        props.navigation.navigate('BooksList');
       } else {
         console.error("Failed to delete book");
         Alert.alert("Error", "Failed to delete book");
@@ -73,7 +80,7 @@ const UpdateBook = (props) => {
         onChangeText={setGenre}
       />
       <View>
-        <Button title="Update" onPress={handleUpdate} />
+        <Button title="Update" onPress={handleUpdate} disabled={loading}/>
       </View>
       <View>
         <Button title="Delete" onPress={handleDelete} />
