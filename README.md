@@ -30,3 +30,9 @@ Para ejecutar el frontend de este proyecto en tu entorno local, sigue los siguie
 4. Una vez que todas las dependencias se hayan instalado correctamente, puedes iniciar el servidor frontend ejecutando el siguiente comando:
    ```sh
     npm run web
+
+## A continuación una demostración con un video del funcionamiento de la App:
+
+
+[![](http://img.youtube.com/vi/v=shHeV-dfBYA/0.jpg)](https://www.youtube.com/watch?v=shHeV-dfBYA"")
+

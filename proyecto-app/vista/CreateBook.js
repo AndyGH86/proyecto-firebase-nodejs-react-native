@@ -68,12 +68,12 @@ const CreateBook = ({ navigation, route, setReload }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1, 
-        marginTop: 10, 
-        alignItems: "center"
+        margin: 10, 
+     
     },
     inputgroup: {
         height: 40, 
-        width: 600,
+        
         borderColor: "gray",
         borderWidth: 1,
         marginBottom: 10,
