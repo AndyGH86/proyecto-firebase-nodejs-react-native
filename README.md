@@ -34,5 +34,4 @@ Para ejecutar el frontend de este proyecto en tu entorno local, sigue los siguie
 ## A continuación una demostración con un video del funcionamiento de la App:
 
 
-[![](http://img.youtube.com/vi/v=shHeV-dfBYA/0.jpg)](https://www.youtube.com/watch?v=shHeV-dfBYA"")
-
+[![](http://img.youtube.com/vi/shHeV-dfBYA/0.jpg)](https://www.youtube.com/watch?v=shHeV-dfBYA "")
