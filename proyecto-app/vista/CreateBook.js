@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, Alert } from "react-native";
+import { View, Text, TextInput, Button, Alert, StyleSheet } from "react-native";
 
 const CreateBook = ({ navigation, route, setReload }) => {
     const [title, setTitle] = useState("");
@@ -41,28 +41,44 @@ const CreateBook = ({ navigation, route, setReload }) => {
     };
 
     return (
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <View style={styles.container}>
             <TextInput
-                style={{ height: 40, width: 300, borderColor: "gray", borderWidth: 1, marginBottom: 10 }}
+                style={styles.inputgroup}
                 placeholder="Title"
                 value={title}
                 onChangeText={setTitle}
             />
             <TextInput
-                style={{ height: 40, width: 300, borderColor: "gray", borderWidth: 1, marginBottom: 10 }}
+                style={styles.inputgroup}                
                 placeholder="Author"
                 value={author}
                 onChangeText={setAuthor}
             />
             <TextInput
-                style={{ height: 40, width: 300, borderColor: "gray", borderWidth: 1, marginBottom: 10 }}
+                style={styles.inputgroup}
                 placeholder="Genre"
                 value={genre}
                 onChangeText={setGenre}
             />
-            <Button title="Create Book" onPress={handleCreateBook} disabled={loading} />
+            <Button title="Save Book" onPress={handleCreateBook} disabled={loading} />
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1, 
+        marginTop: 10, 
+        alignItems: "center"
+    },
+    inputgroup: {
+        height: 40, 
+        width: 600,
+        borderColor: "gray",
+        borderWidth: 1,
+        marginBottom: 10,
+        padding: 10,
+    },
+  });
 
 export default CreateBook;

@@ -55,7 +55,7 @@ const BooksList = (props) => {
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id.toString()}
             />
-            <Button color="#841584" title="Create Book" onPress={() => props.navigation.navigate('CreateBook')} />
+            <Button style={styles.butto} color="#841584" title="Create Book" onPress={() => props.navigation.navigate('CreateBook')} />
         </>
     );
 }
@@ -65,6 +65,10 @@ const styles = StyleSheet.create({
       backgroundColor: "#87cefa",
       justifyContent: 'center',
     },
+    butto:{
+        width: 20,
+        justifyContent: "center"
+    }
   });
 
 export default BooksList;
